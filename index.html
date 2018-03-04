@@ -7,26 +7,25 @@
   <title>Hangman</title>
   <link rel="stylesheet" href="./assets/css/reset.css">
   <link rel="stylesheet" href="./assets/css/style.css">
-  <script src="./assets/javascript/game.js"></script>
 </head>
 <body>
   <h1>Hangman</h1>
   <h2>North Woods Style</h2>
-
+  
   <p>Press any key to get started!</p>
-
+  
   <p>Wins</p>
-
+  <div id="numberWins"></div>
+  
   <p>Current word:</p>
-  <div id="currentWord"></div>
-
+  <div id="randomWord"></div>
+  
   <p>Number of guesses remaining:</p>
-
-  <div id = "guessesLeft"></div>
-
+  <div id="lives"></div>
+  
   <p>Letters already guessed:</p>
-
-  <div id = "guessed"></div>
-
+  <div id="lettersGuessed"></div>
+  
+  <script src="./assets/javascript/game.js"></script>
 </body>
 </html>
