@@ -16,6 +16,11 @@ window.addEventListener("DOMContentLoaded", function(){
   let index;
   let found = false;
 
+  // Display the total number of wins and lives (guesses) left
+  document.querySelector("#numberWins").innerHTML = wins;
+  document.querySelector("#lives").innerHTML = lives;
+
+  // Define a function that chooses a random word from the words array and regenerates another word if the word was just used
   let chooseWord = function() {
     randomWord = words[Math.floor(Math.random() * words.length)];
     if (randomWord === previousWord) {
@@ -23,27 +28,18 @@ window.addEventListener("DOMContentLoaded", function(){
     }
   };
   
+  // Define a function that selects the random word from the words array and then splits the selected word into an array of it's letters
   let generateWord = function() {
-    // Select the random word from words array and then split the selected word into an array of it's letters
-    // randomWord = words[Math.floor(Math.random() * words.length)];
-
     chooseWord();
-
     letterArray = randomWord.split("");
-    //To test split of random word
-    console.log(letterArray);
-    
-    // Display blank lines for each letter in the word
+    // console.log(letterArray);
+    // Create blank lines for each letter in the word
     for (var i = 0; i < letterArray.length; i++) {
       answer[i] = ("_");
     }
   };
 
-  document.querySelector("#numberWins").innerHTML = wins;
-
-  document.querySelector("#lives").innerHTML = lives;
-
-  // Create a function to create a string from the answer array
+  // Define a function to create a string from the answer array
   let displayAnswerString = function() {
     // Turn the answer array into a string separated by spaces
     answerString = answer.join(' ');
@@ -77,10 +73,9 @@ window.addEventListener("DOMContentLoaded", function(){
       found = false;
       // console.log("Found is assigned false");
     }
+    // console.log(answer);
 
-    console.log(answer);
-
-    // If the letter wasn't found after looping and it wasn't guessed already, add it to the list of keys pressed and reduce the lives by 1
+    // If the letter wasn't found after looping through the letterArray and it wasn't guessed already, add it to the list of keys pressed and reduce the lives by 1
     if (!found && lives > 0 && keysPressed.indexOf(letter) === -1) {
       lives = lives - 1;
       document.querySelector("#lives").innerHTML = lives;
@@ -104,14 +99,14 @@ window.addEventListener("DOMContentLoaded", function(){
       document.body.style.backgroundImage = "url('./assets/images/green-goblin.png')";
     };
 
-    // If the player has no lives left, display the word and tell them they lose and then generate a new word
+    // If the player has no lives left, display the word, tell them they lose, wait and then generate a new word
     if (lives === 0) {
       setTimeout(function() {
         resetGame();
       }, 4000);
       document.querySelector("#lives").innerHTML = "Sorry! You're out of lives!";
       document.querySelector("#gameOver").innerHTML = "You lose! The word was " + randomWord + ".";
-      document.body.style.backgroundImage = "url('./assets/images/ripples.jpg')";
+      document.body.style.backgroundImage = "url('./assets/images/nyc-candy.png')";
     }
 
     // If all letters have been guessed correctly, update the display to say "you win" and then generate a new word
