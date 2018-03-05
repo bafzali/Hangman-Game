@@ -101,6 +101,7 @@ window.addEventListener("DOMContentLoaded", function(){
       document.querySelector("#lives").innerHTML = lives;
       document.querySelector("#gameOver").innerHTML = " ";
       document.querySelector("#lettersGuessed").innerHTML = " ";
+      document.body.style.backgroundImage = "url('./assets/images/green-goblin.png')";
     };
 
     // If the player has no lives left, display the word and tell them they lose and then generate a new word
@@ -110,6 +111,7 @@ window.addEventListener("DOMContentLoaded", function(){
       }, 3500);
       document.querySelector("#lives").innerHTML = "Sorry! You're out of lives!";
       document.querySelector("#gameOver").innerHTML = "You lose! The word was " + randomWord + ".";
+      document.body.style.backgroundImage = "url('./assets/images/white-wood.jpg')";
     }
 
     // If all letters have been guessed correctly, update the display to say "you win" and then generate a new word
@@ -120,6 +122,7 @@ window.addEventListener("DOMContentLoaded", function(){
         resetGame();
       }, 3500);
         document.querySelector("#gameOver").innerHTML = "You win!";
-    }
+        document.body.style.backgroundImage = "url('./assets/images/white-wood.jpg')";
+      }
   };
 });
