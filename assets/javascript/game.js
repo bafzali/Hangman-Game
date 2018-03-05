@@ -1,7 +1,8 @@
 window.addEventListener("DOMContentLoaded", function(){
 
-  let words =["maple", "canoe", "wolf", "lake", "forest", "stream", "campfire", "bear", "yurt"];
+  let words =["maple", "canoe", "wolf", "lake", "forest", "stream", "campfire", "bear", "yurt", "snow", "boreal", "conifer"];
   let randomWord;
+  let previousWord;
 
   let letter;
   let letterArray = [];
@@ -14,10 +15,19 @@ window.addEventListener("DOMContentLoaded", function(){
   let wins = 0;
   let index;
   let found = false;
+
+  let chooseWord = function() {
+    randomWord = words[Math.floor(Math.random() * words.length)];
+    if (randomWord === previousWord) {
+      randomWord = words[Math.floor(Math.random() * words.length)];
+    }
+  };
   
   let generateWord = function() {
     // Select the random word from words array and then split the selected word into an array of it's letters
-    randomWord = words[Math.floor(Math.random() * words.length)];
+    // randomWord = words[Math.floor(Math.random() * words.length)];
+
+    chooseWord();
 
     letterArray = randomWord.split("");
     //To test split of random word
@@ -27,17 +37,17 @@ window.addEventListener("DOMContentLoaded", function(){
     for (var i = 0; i < letterArray.length; i++) {
       answer[i] = ("_");
     }
-
-    document.querySelector("#numberWins").innerHTML = wins;
   };
+
+  document.querySelector("#numberWins").innerHTML = wins;
 
   document.querySelector("#lives").innerHTML = lives;
 
   // Create a function to create a string from the answer array
   let displayAnswerString = function() {
-    // To turn the answer array into a string
+    // Turn the answer array into a string separated by spaces
     answerString = answer.join(' ');
-    // To display the answer string on the page
+    // Display the answer string on the page
     document.querySelector("#randomWord").innerHTML = answerString;
   };
 
@@ -53,7 +63,7 @@ window.addEventListener("DOMContentLoaded", function(){
     for (var k = 0; k < letterArray.length; k++) {
 
       if (letter === letterArray[k]) {
-        console.log(letterArray[k]);
+        // console.log(letterArray[k]);
         index = letterArray.indexOf(letter);
         answer.splice(index, 1, letter);
         displayAnswerString();  
@@ -62,10 +72,10 @@ window.addEventListener("DOMContentLoaded", function(){
 
     if (letterArray.includes(letter)) {
       found = true;
-      console.log("Found is assigned true");
+      // console.log("Found is assigned true");
     } else {
       found = false;
-      console.log("Found is assigned false");
+      // console.log("Found is assigned false");
     }
 
     console.log(answer);
@@ -81,7 +91,8 @@ window.addEventListener("DOMContentLoaded", function(){
 
     // Create a function to reset the game when a player wins or loses
     let resetGame = function() {
-      console.log("Yippee!");
+      previousWord = randomWord;
+      console.log(previousWord); // make sure the correct word is assigned to previousWord so it won't be repeated
       lives = 10;
       answer = [];
       keysPressed = [];
@@ -92,7 +103,7 @@ window.addEventListener("DOMContentLoaded", function(){
       document.querySelector("#lettersGuessed").innerHTML = " ";
     };
 
-    // If the player has no lives left, display the word and tell them they lose, then reset the game after a time delay
+    // If the player has no lives left, display the word and tell them they lose and then generate a new word
     if (lives === 0) {
       setTimeout(function() {
         resetGame();
@@ -101,7 +112,7 @@ window.addEventListener("DOMContentLoaded", function(){
       document.querySelector("#gameOver").innerHTML = "You lose! The word was " + randomWord + ".";
     }
 
-    // If all letters have been guessed correctly, update the display to say "you win"
+    // If all letters have been guessed correctly, update the display to say "you win" and then generate a new word
     if (lives !== 0 && randomWord === answer.join("")) {
       document.querySelector("#numberWins").innerHTML = wins + 1;
       wins = wins + 1;
